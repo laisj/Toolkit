@@ -9,48 +9,6 @@ import threading
 #os.popen('QueryIndexDataDumper.exe')
 
 configStr = '''
-[LogRules]
-Rule1=QueryIndexDataDumper,*,*,stdout
-Rule2=QueryIndexDataDumper,*,*,LogRule_QueryIndexDataDumper
-
-[LogRule_QueryIndexDataDumper]
-FileNameBase=local\QueryIndexDataDumper_Log
-MaxFiles=20
-MaxFileSize=1000000
-BufferSize=10000
-
-[QueryIndexDataDumper]
-;build interval count by seconds
-BuildInterval=120
-;max chunk count for filter
-ChunkMaxCount=30
-;news classifier query index log pattern
-NCFilePathPattern=NewsClassifier_QueryIndex_
-;NC query index log dir
-NCDir=D:\Data\Logs\Local\\
-;wait interval after log is ready
-WaitInterval=20
-; FilterQueryLength is equal with max chunk count
-
-; BlackFormcodeList
-BlackFormcodeList=monitr,monitr2
-;WhiteFormcodeList
-WhiteFormcodeList=qbnt
-;Formcode filter switch, 0 for black form code
-FormcodeFilterSwitch=0
-;Traffic sample rate
-SampleRate=0
-;how many appearence time can avoid being trunked
-ChunkFilterThreshold=1
-;cosmos folder of the upload files
-devmachine$CosmosRootFolder=http://cosmos09.osdinfra.net:88/cosmos/Realtime/local/Realtime/QueryIndexDataDumper/Dev/
-Answers-Int-Bn1$CosmosRootFolder=http://cosmos09.osdinfra.net:88/cosmos/Realtime/local/Realtime/QueryIndexDataDumper/Int/
-CosmosRootFolder=http://cosmos09.osdinfra.net:88/cosmos/Realtime/local/Realtime/QueryIndexDataDumper/Prod/
-;local temp file folder
-LocalRootFolder=d:\data\NewsQueryIndexDataDumper{id}\\
-;regex pattern for query index log
-RegexPattern=d,(?<time>.*?),News,(.*?)Market=(?<market>.*?)NormalizedQuery=(?<query>.*?)FormCode=(?<formcode>.*?)
-;time out threshold for regex
 RegexMaxTimeout=1000
 '''
 
