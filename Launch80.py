@@ -75,9 +75,9 @@ if __name__ == "__main__":
 	global g_mutex
 	g_mutex = threading.Lock()
 	thread_pool = []
-	for i in xrange(80):
+	for i in xrange(8):
 		th = threading.Thread(target=worker, args=(i,))
 		thread_pool.append(th)
-	for i in xrange(80):
+	for i in xrange(8):
 		thread_pool[i].start()
 
