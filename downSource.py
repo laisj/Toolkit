@@ -4,7 +4,7 @@ import re
 import urllib2
 import webbrowser
 import time
-urlPattern = '{destUrl}'
+urlPattern = 'http://we.99bitgongchang.net/'
 html_src = urllib2.urlopen(urlPattern + '/00/'+ sys.argv[1] +'.html').read()
 html_src_gb = html_src.decode('gb2312',"ignore")
 print html_src_gb
@@ -21,7 +21,7 @@ for urliter in usefulList:
     else:
         final_html_src = final_html_src.decode('gb2312','ignore')
         #print final_html_src
-        pp = re.compile("{destQuery}".decode('utf8','ignore'))
+        pp = re.compile("²¨¶àÒ°".decode('utf8','ignore'))
         boduolist = pp.findall(final_html_src)
         if(len(boduolist) > 0):
             print final_html_src
