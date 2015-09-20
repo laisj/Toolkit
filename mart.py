@@ -119,7 +119,6 @@ def query_lambdas(page, k=10):
                     delta_dcg += position_score[j][i] - position_score[j][j]
 
                     delta_ndcg = abs(delta_dcg / idcg)
-                    delta_ndcg = delta_dcg / idcg
 
                     rho = 1 / (1 + math.exp(model_page[i] - model_page[j]))
 
