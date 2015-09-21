@@ -1,11 +1,7 @@
 import numpy as np
 import math
-# import pandas
 from optparse import OptionParser
 from sklearn.tree import DecisionTreeRegressor
-from collections import defaultdict
-from copy import deepcopy
-from multiprocessing import Pool
 from itertools import chain
 import csv
 import time
@@ -95,9 +91,6 @@ def query_lambdas(page, k=10):
 
     true_page = true_page[worst_order]
     model_page = model_page[worst_order]
- 
-
-    model_order = np.argsort(model_page)
 
     idcg = dcg(np.sort(true_page)[-10:][::-1])
 
@@ -106,8 +99,7 @@ def query_lambdas(page, k=10):
 
     for i in xrange(size):
         for j in xrange(size):
-            position_score[model_order[i], model_order[j]] = \
-                point_dcg((model_order[j], true_page[model_order[i]]))
+            position_score[i, j] = point_dcg((j, true_page[i]))
 
     lambdas = np.zeros(size)
 
@@ -119,7 +111,6 @@ def query_lambdas(page, k=10):
                     delta_dcg += position_score[j][i] - position_score[j][j]
 
                     delta_ndcg = abs(delta_dcg / idcg)
-                    delta_ndcg = delta_dcg / idcg
 
                     rho = 1 / (1 + math.exp(model_page[i] - model_page[j]))
 
@@ -136,10 +127,7 @@ def compute_lambdas(prediction, true_score, query, k=10):
     model_pages = groupby(prediction, query)
 
     print len(true_pages), "pages"
-    '''
-    pool = Pool()
-    lambdas = pool.map(query_lambdas, zip(true_pages, model_pages))
-    '''
+
     lambdas = []
     for i in zip(true_pages, model_pages):
         lambdas.append(query_lambdas(i))
@@ -155,21 +143,16 @@ def learn(train_file, n_trees=10, learning_rate=0.1, k=10, validate=False):
     train = np.loadtxt(train_file, delimiter=",", skiprows=1)
 
     scores = train[:, 0]
-    # val_scores = train[:, 0]
 
     queries = train[:, 1]
-    # val_queries = validation[:, 1]
 
     features = train[:, 3:]
-    # val_features = validation[:, 3:]
 
     ensemble = Ensemble(learning_rate)
 
     print "Training starts..."
     model_output = np.zeros(len(features))
-    # val_output = np.array([float(0)] * len(validation))
 
-    # best_validation_score = 0
     time.clock()
     for i in range(n_trees):
         print " Iteration: " + str(i + 1)
@@ -181,7 +164,6 @@ def learn(train_file, n_trees=10, learning_rate=0.1, k=10, validate=False):
         lambdas = compute_lambdas(model_output, scores, queries, k)
         
         print zip(lambdas, scores)
-        #lambdas = mart_responces(model_output, scores)
         print "  --done", str(time.clock() - start) + " sec"
  
         # create tree and append it to the model
@@ -202,7 +184,7 @@ def learn(train_file, n_trees=10, learning_rate=0.1, k=10, validate=False):
 
         print "  --updating full model output"
         model_output += learning_rate * prediction
-        # print set(model_output)
+        print model_output
 
         # train_score
         start = time.clock()
@@ -210,31 +192,6 @@ def learn(train_file, n_trees=10, learning_rate=0.1, k=10, validate=False):
         train_score = score(model_output, scores, queries, 10)
         print "  --iteration train score " + str(train_score) + ", took " + str(time.clock() - start) + "sec to calculate"
 
-        # # validation score
-        # print "  --scoring on validation"
-        # val_output += learning_rate * tree.predict(val_features)
-        # val_score = ndcg(val_output, val_scores, val_queries, 10)
-
-        # print "  --iteration validation score " + str(val_score)
-
-        # if(validation_score > best_validation_score):
-        #         best_validation_score = validation_score
-        #         best_model_len = len(ensemble)
-
-        # # have we assidently break the celling?
-        # if (best_validation_score > 0.9):
-        #     break
-
-    # rollback to best
-    # if len(ensemble) > best_model_len:
-        # ensemble.remove(len(ensemble) - best_model_len)
-
-    # finishing up
-    # print "final quality evaluation"
-#    train_score = compute_ndcg(ensemble.eval(features), scores)
-    # test_score = compute_ndcg(ensemble.eval(validation), validation_score)
-
-    # print "train %s, test %s" % (train_score, test_score)
     print "Finished sucessfully."
     print "------------------------------------------------"
     return ensemble
@@ -261,12 +218,10 @@ if __name__ == "__main__":
     parser.add_option("-p", "--predict", action="store", type="string", dest="predict_file")
 
     options, args = parser.parse_args()
-    iterations = 30
-    learning_rate = 1
 
     model = learn(options.train_file,
                   validate = options.validate,
-                  n_trees = 20)
+                  n_trees = 2000)
 
     if options.predict_file:
         predict(model, options.predict_file)
