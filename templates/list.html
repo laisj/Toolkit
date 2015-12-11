@@ -1,0 +1,9 @@
+$def with (todos)
+
+<table>
+$for c in todos:
+    <tr class="$loop.parity">
+        <td>$loop.index</td>
+        <td>$c</td>
+    </tr>
+</table>
