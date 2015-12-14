@@ -4,7 +4,7 @@ import happybase
 import collections
 import operator
 
-machine = 'l-algozoo1.f.dev.cn0.qunar.com'
+machine = '127.0.0.1'
 table_name1 = 'inter_flt_line'
 table_name2 = 'inter_flt_line_country'
 col_famliy='u'
