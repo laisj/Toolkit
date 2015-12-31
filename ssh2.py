@@ -2,7 +2,7 @@ import datetime
 import os
 
 print datetime.datetime.now()
-m_list = ['bastion001.m6', 'bastion002.m6', 'ads-001.m6', 'ads-002.m6', 'ads-0033.m6', 'ads-004.m6', 'vm-mts-001.vm', 'vm-mts-003.vm']
+m_list = ['x.vm']
 
 for i,m in enumerate(m_list):
     print str(i) + ":" + m
