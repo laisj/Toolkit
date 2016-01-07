@@ -22,7 +22,3 @@ import pylab as pl
 
 pl.imshow(digits.images[0], cmap=pl.cm.gray_r)
 pl.show()
-
-aa = [[1,2],[3,4]]
-b = (x for x in aa for y in x)
-print b
