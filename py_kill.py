@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import commands
 import os,sys,string
 import re
