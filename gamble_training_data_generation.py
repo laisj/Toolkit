@@ -34,10 +34,11 @@ def GenGameName(rate_reg, num_reg, split_reg, result_reg, blank_reg, html_str):
     return match_details
     
 '''[0]主队全场进球 [1]客队全场进球 [2]主队半场进球 [3]客队半场进球'''
-def GenGameScore(score_reg, team_score_reg):
+#def GenGameScore(score_reg, team_score_reg):
     
 
-url_template = "http://odds.500.com/history.php?date={1}"
+#url_template = "http://odds.500.com/history.php?date={1}"
+url_template = "http://odds.500.com/index_history_{1}.shtml"
 url = url_template.replace("{1}", sys.argv[1])
 html_str = urllib2.urlopen(url).read()
 #html_unicode_gb = html_str.decode('gbk', 'ignore')
@@ -51,7 +52,7 @@ team_score_reg = re.compile("[<>]")
 
 match_details = GenGameName(rate_reg, num_reg, split_reg, result_reg, blank_reg, html_str)
 
-score_details = GenGameScore(score_reg, team_score_reg)
+#score_details = GenGameScore(score_reg, team_score_reg)
 
 #step2: get game score
 '''[0]主队全场进球 [1]客队全场进球 [2]主队半场进球 [3]客队半场进球'''
