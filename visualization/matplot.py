@@ -4,7 +4,7 @@ from pandas.tools.plotting import scatter_matrix
 import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.DataFrame(np.random.randn(1000, 4), columns=['a', 'b', 'c', 'd'])
+df = pd.DataFrame(np.random.randn(100, 4), columns=['a', 'b', 'c', 'd'])
 print np.random.randn(10, 4)
 scatter_matrix(df, alpha=0.5, figsize=(8, 8), diagonal='kde')
 plt.show()

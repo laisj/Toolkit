@@ -13,4 +13,3 @@ for sfile in os.listdir(fpath):
             newname = sfile.replace("V2withNC", "nnc")
             os.rename(os.path.join(fpath, sfile), os.path.join(fpath, newname))
             print sfile, newname, "ok"
-            

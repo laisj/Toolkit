@@ -22,6 +22,3 @@ while a != None and b != None:
         b = next(iter2, None)
     else:
         a = next(iter1, None)
-
-
-

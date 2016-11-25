@@ -21,5 +21,3 @@ while a!= None and b != None:
     else:
         print a
         a = next(iter1, None)
-
-
