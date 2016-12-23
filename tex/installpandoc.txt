@@ -1,0 +1,22 @@
+brew install pandoc
+brew install mactex
+制作模版
+pandoc -D beamer > beamer-template.tex
+支持中文
+\ifxetex
+\usepackage{xeCJK} % 设置中英文字体
+\setCJKmainfont{STSong} % 中文字体
+\setmainfont{Georgia} % 英文字体
+\setromanfont{Georgia}
+\setmonofont{Courier New}
+\linespread{1.2}\selectfont % 行距
+\XeTeXlinebreaklocale "zh" % 中文自动换行
+\XeTeXlinebreakskip = 0pt plus 1pt % 字之间加0pt至1pt间距
+\parindent 0em % 段缩进
+\setlength{\parskip}{20pt} % 段间距
+\fi
+
+编译：pandoc -t beamer -o exam1.pdf test.md --template=mytemplate.tex --latex-engine=xelatex
+参考
+ http://www.cnblogs.com/aquastone/p/markdown_slide.html
+https://www.phodal.com/blog/mac-os-install-pandoc-markdown-convert-pdf-doc/
