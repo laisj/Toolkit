@@ -17,6 +17,7 @@ val q = pp.map(x=>x._2/x._1)
 val qq = q.sortBy(x=>x)
 val qq2 = qq.zipWithIndex.map(x=>(x._2,x._1))
 val cnt = qq2.count
-val res = (1 to 100 ).map(x=>qq2.lookup(cnt/100*x))
+val res = (1 to 100).map(x=>qq2.lookup(cnt/100*x))
+val res2 = (1 to 10).map(x=>qq2.lookup(cnt/10*x))
 res.foreach(x=>println(x(0)))
 Array[Double](0,1,2,3).search(2.0).insertionPoint
