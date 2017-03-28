@@ -8,7 +8,8 @@ from mpl_toolkits.mplot3d import Axes3D
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-n = np.arange(1000, 20000, 1000)
+n = np.arange(100, 2000, 100)
+#n = np.arange(1000, 20000, 1000)
 p = np.arange(0.001, 0.05, 0.001)
 n, p = np.meshgrid(n, p)
 #aa = 1.0 * a / (a + b)
@@ -18,8 +19,10 @@ n, p = np.meshgrid(n, p)
 #x = np.arange(0.0001, 1, 0.0001)
 #y = stats.beta.cdf(x, a, b)
 
-a = n
-b = n * p
+#a = n
+#b = n * p
+a = n / p
+b = n
 zz = stats.beta.ppf(0.025, b, a-b)/p
 #ax.plot_surface(n,p,zz)
 #ax.plot_wireframe(n,p,zz)
