@@ -9,10 +9,18 @@ print np.random.randn(10, 4)
 scatter_matrix(df, alpha=0.5, figsize=(8, 8), diagonal='kde')
 plt.show()
 '''
+import sys
 import redis
 
-r = redis.Redis(host="127.0.0.1", port=6303)
-print r.hget('a','b')
+modelNameOut = sys.argv[0]
+r = redis.Redis(host="ads-test-001.dx", port=6303)
+# input comes from STDIN (standard input)
+for line in sys.stdin:
+    line_pair = line.strip().split("|")
+    k = line_pair[0]
+    v = line_pair[1]
+    r.hset("model:" + modelNameOut + ":info", k, v)
+    r.publish("reloadLrModel", "1")
 print r.hgetall('c')
 r.hmset('a', {'123':'\"[1,2]\"'})
 r.hmset('aaaa', {'123':'\"[1,2]\"'})

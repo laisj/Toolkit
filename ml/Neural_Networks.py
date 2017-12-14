@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Oct 16 11:39:06 2015
-
-@author: shequan.jiang
-"""
 import matplotlib.pyplot as plt
 import numpy as np
 import sklearn
