@@ -1,0 +1,5 @@
+feagen: git@git.n.xiaomi.com:ctr_group/feature_extractor_offline.git
+	branch:  wwxuctx
+	依赖 ctr_common
+	git@git.n.xiaomi.com:ctr_group/ctr_common.git
+	branch：wwxu_ctx 
